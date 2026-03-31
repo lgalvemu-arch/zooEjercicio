@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\alumno mañanas\\source\\repos\\lgalvemu-arch\\zooEjercicio\\WebApplication\\WebApplication.csproj": {}
+    "C:\\Users\\alumno mañanas\\Documents\\GitHub\\zooEjercicio\\WebApplication\\WebApplication.csproj": {}
   },
   "projects": {
-    "C:\\Users\\alumno mañanas\\source\\repos\\lgalvemu-arch\\zooEjercicio\\WebApplication\\WebApplication.csproj": {
+    "C:\\Users\\alumno mañanas\\Documents\\GitHub\\zooEjercicio\\WebApplication\\WebApplication.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\alumno mañanas\\source\\repos\\lgalvemu-arch\\zooEjercicio\\WebApplication\\WebApplication.csproj",
+        "projectUniqueName": "C:\\Users\\alumno mañanas\\Documents\\GitHub\\zooEjercicio\\WebApplication\\WebApplication.csproj",
         "projectName": "WebApplication",
-        "projectPath": "C:\\Users\\alumno mañanas\\source\\repos\\lgalvemu-arch\\zooEjercicio\\WebApplication\\WebApplication.csproj",
+        "projectPath": "C:\\Users\\alumno mañanas\\Documents\\GitHub\\zooEjercicio\\WebApplication\\WebApplication.csproj",
         "packagesPath": "C:\\Users\\alumno mañanas\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\alumno mañanas\\source\\repos\\lgalvemu-arch\\zooEjercicio\\WebApplication\\obj\\",
+        "outputPath": "C:\\Users\\alumno mañanas\\Documents\\GitHub\\zooEjercicio\\WebApplication\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -49,6 +49,12 @@
       "frameworks": {
         "net10.0": {
           "targetAlias": "net10.0",
+          "dependencies": {
+            "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[10.0.3, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",
