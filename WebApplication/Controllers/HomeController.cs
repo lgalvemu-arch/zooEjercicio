@@ -1,25 +1,38 @@
 using Microsoft.AspNetCore.Mvc;
-using System.Diagnostics;
-using WebApplication.Models;
+using Microsoft.EntityFrameworkCore;
+using ZooMvc.Data;
+using ZooMvc.Models.ViewModels;
+using ZooMvc.Services;
 
-namespace WebApplication.Controllers
+namespace ZooMvc.Controllers;
+
+public class HomeController : Controller
 {
-    public class HomeController : Controller
+    private readonly IAnimalQueryService _animalQueryService;
+    private readonly ZooDbContext _context;
+
+    public HomeController(IAnimalQueryService animalQueryService, ZooDbContext context)
     {
-        public IActionResult Index()
-        {
-            return View();
-        }
+        _animalQueryService = animalQueryService;
+        _context = context;
+    }
 
-        public IActionResult Privacy()
-        {
-            return View();
-        }
+    public async Task<IActionResult> Index(string? especie, CancellationToken cancellationToken)
+    {
+        var animales = await _animalQueryService.GetAnimalCardsAsync(especie, cancellationToken);
+        var especies = await _context.Animales
+            .AsNoTracking()
+            .Where(a => a.Especie != null && a.Especie != "")
+            .Select(a => a.Especie!.Trim())
+            .Distinct()
+            .OrderBy(x => x)
+            .ToListAsync(cancellationToken);
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
+        return View(new HomeIndexViewModel
         {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }
+            EspecieFiltro = especie,
+            Animales = animales,
+            EspeciesDisponibles = especies
+        });
     }
 }

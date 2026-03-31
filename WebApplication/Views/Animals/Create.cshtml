@@ -1,0 +1,31 @@
+@model Animal
+@{
+    ViewData["Title"] = "Crear animal";
+    var jaulas = ViewBag.Jaulas as List<Jaula> ?? new();
+}
+
+<h1>Crear animal</h1>
+<form method="post" class="form-grid">
+    <label>Especie</label>
+    <input asp-for="Especie" />
+
+    <label>Nombre popular</label>
+    <input asp-for="NombrePopular" />
+
+    <label>Url imagen</label>
+    <input asp-for="UrlImagen" />
+
+    <label>Jaula</label>
+    <select asp-for="JaulaId">
+        <option value="">-- seleccionar --</option>
+        @foreach (var jaula in jaulas)
+        {
+            <option value="@jaula.Id">@jaula.Codigo</option>
+        }
+    </select>
+
+    <div class="form-actions">
+        <button type="submit">Guardar</button>
+        <a asp-action="Index" class="secondary-btn">Cancelar</a>
+    </div>
+</form>

@@ -1,0 +1,61 @@
+@model ManagementDashboardViewModel
+@{
+    ViewData["Title"] = "Gestión";
+}
+
+<h1>Cuadro de mando</h1>
+<div class="kpi-grid">
+    <div class="kpi"><span>Inversión en comida</span><strong>@Model.InversionTotalComida.ToString("C")</strong></div>
+    <div class="kpi"><span>Pedidos sugeridos</span><strong>@Model.PedidosSugeridos.Count</strong></div>
+    <div class="kpi"><span>Jaulas revisadas</span><strong>@Model.Compatibilidades.Count</strong></div>
+</div>
+
+<section>
+    <h2>Coste por animal</h2>
+    <table class="table">
+        <thead><tr><th>Animal</th><th>Especie</th><th>Coste</th></tr></thead>
+        <tbody>
+        @foreach (var item in Model.CostePorAnimal)
+        {
+            <tr><td>@item.Nombre</td><td>@item.Especie</td><td>@item.Coste.ToString("C")</td></tr>
+        }
+        </tbody>
+    </table>
+</section>
+
+<section>
+    <h2>Pedidos al proveedor</h2>
+    <table class="table">
+        <thead><tr><th>Alimento</th><th>Stock</th><th>Mínimo</th><th>Dosis</th><th>Pedir</th><th>Proveedor</th></tr></thead>
+        <tbody>
+        @foreach (var item in Model.PedidosSugeridos)
+        {
+            <tr>
+                <td>@item.Alimento</td>
+                <td>@item.StockActual</td>
+                <td>@item.StockMinimo</td>
+                <td>@item.DosisNecesarias</td>
+                <td>@item.CantidadAPedir</td>
+                <td>@item.Proveedor</td>
+            </tr>
+        }
+        </tbody>
+    </table>
+</section>
+
+<section>
+    <h2>Compatibilidad de jaulas</h2>
+    @foreach (var item in Model.Compatibilidades)
+    {
+        <div class="compat-card @(item.Compatible ? "ok" : "bad")">
+            <h3>Jaula @item.CodigoJaula</h3>
+            <p>@item.Motivo</p>
+            <ul>
+            @foreach (var animal in item.Animales)
+            {
+                <li>@animal.Nombre (@animal.Especie) - @animal.Dieta</li>
+            }
+            </ul>
+        </div>
+    }
+</section>

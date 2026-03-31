@@ -1,8 +1,26 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+@model HomeIndexViewModel
+@{
+    ViewData["Title"] = "Visitantes del Zoo";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<section class="hero">
+    <div>
+        <h1>Visitantes del Zoo</h1>
+        <p>Consulta todos los animales con su ecosistema, dieta, foto y jaula. El filtro por especie usa el ViewComponent solicitado en el ejercicio.</p>
+    </div>
+</section>
+
+<form method="get" class="filterbar">
+    <label for="especie">Especie</label>
+    <select id="especie" name="especie">
+        <option value="">Todas</option>
+        @foreach (var especie in Model.EspeciesDisponibles)
+        {
+            <option value="@especie" selected="@(Model.EspecieFiltro == especie)">@especie</option>
+        }
+    </select>
+    <button type="submit">Filtrar</button>
+    <a asp-action="Index" class="secondary-btn">Limpiar</a>
+</form>
+
+@await Component.InvokeAsync("Animal", new { especie = Model.EspecieFiltro })
